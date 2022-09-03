@@ -1,8 +1,8 @@
 import React from 'react'
-
+import '../styles/title.scss'
 function PageTitle({ children, ...rest }) {
     return (
-        <p>{children}</p>
+        <p className='title'>{children}</p>
     )
 }
 
