@@ -9,17 +9,22 @@ import toast from 'react-hot-toast'
 
 function TodoModal({ type, modalOpen, setModalOpen, todo }) {
     const [title, setTitle] = useState('')
-    const [status, setStatus] = useState('incompleted')
+    const [desc, setDesc] = useState('')
+    const [status, setStatus] = useState('incomplete')
     const dispatch = useDispatch()
+
     useEffect(() => {
         if (type === 'update' && todo) {
             setTitle(todo.title)
             setStatus(todo.status)
+            setDesc(todo.desc)
         } else {
             setTitle('')
-            setStatus('incompleted')
+            setStatus('incomplete')
+            setDesc('')
         }
     }, [type, todo, modalOpen])
+
     const handleSubmit = (e) => {
         e.preventDefault()
         if (title === '') {
@@ -32,15 +37,17 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }) {
                     id: uuid(),
                     title,
                     status,
+                    desc,
                     time: new Date().toLocaleString()
                 }))
                 toast.success('Task Added Sucessfully')
             }
             if (type === 'update') {
-                if (todo.title !== title || todo.status !== status) {
-                    dispatch(updateTodo({ ...todo, title, status }))
+                if (todo.title !== title || todo.status !== status || todo.desc !== desc) {
+                    dispatch(updateTodo({ ...todo, title, status, desc }))
                 } else {
                     toast.error('No changes found')
+                    return
                 }
             }
             setModalOpen(false)
@@ -67,11 +74,18 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }) {
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)} />
                         </label>
+                        <label htmlFor='desc'>
+                            Description
+                            <input type='text'
+                                id='desc'
+                                value={desc}
+                                onChange={(e) => setDesc(e.target.value)} />
+                        </label>
                         <label htmlFor='status'>
                             Status
                             <select name='status' id='status' value={status} onChange={(e) => setStatus(e.target.value)}>
-                                <option value="incompleted">Incompleted</option>
-                                <option value="completed">Completed</option>
+                                <option value="incomplete">Incomplete</option>
+                                <option value="complete">Complete</option>
                             </select>
                         </label>
                         <div className='buttonContainer'>

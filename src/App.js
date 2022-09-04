@@ -8,9 +8,9 @@ import { Toaster } from "react-hot-toast";
 function App() {
     return (
         <>
-            <div className="container">
+            <div>
                 <PageTitle>Todo List</PageTitle>
-                <div className={"app__wrapper"}>
+                <div className="app__wrapper">
                     <AppHeader />
                     <AppContent />
                 </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../styles/button.scss'
+import '../styles/button.scss'
 import { getClasses } from '../utils/getClasses';
 function Button({ type, variant, children, ...rest }) {
     const buttonTypes = {
@@ -9,8 +9,8 @@ function Button({ type, variant, children, ...rest }) {
     return (
         <button
             className={getClasses([
-                styles.button,
-                styles[`button--${buttonTypes[variant]}`],
+                'button',
+                [`button--${buttonTypes[variant]}`],
             ])}
             type={type === 'submit' ? 'submit' : 'button'}
             {...rest}
@@ -20,10 +20,10 @@ function Button({ type, variant, children, ...rest }) {
     );
 }
 
-function SelectButton({ children, ...rest }) {
+function SelectButton({ children, id, ...rest }) {
     return (
-        <select className={getClasses([styles.button, 
-            styles.button__select])}
+        <select id={id} className={getClasses(['button',
+        'button__select'])}
             {...rest}
         >
             {children}
