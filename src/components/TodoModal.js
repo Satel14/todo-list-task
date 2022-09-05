@@ -27,8 +27,8 @@ function TodoModal({ type, modalOpen, setModalOpen, todo }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (title === '') {
-            toast.error('Please enter a title')
+        if (title === '' || desc === '') {
+            toast.error('Please enter a title and description')
             return;
         }
         if (title && status) {
